@@ -1,0 +1,3 @@
+ route :put, '/api/file/claim_device_file/:file_key' do
+    ...
+  end
