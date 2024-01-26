@@ -1,0 +1,24 @@
+rules:
+  - id: figma.ruby-new-route
+    languages:
+      - ruby
+    message: >
+      Found a Sinatra route ($PATHS) which represents your application's attack
+      surface. Please make sure appropriate checks for access-control and IDOR
+      are in place (see go/idor).
+    patterns:
+      - pattern: $PATHS
+      - pattern-either:
+          - pattern-inside: |
+              route($VERB, $PATHS, ...) do ... end
+          - pattern-inside: |
+              post($PATHS, ...) do ... end
+          - pattern-inside: |
+              get($PATHS, ...) do ... end
+          - pattern-inside: |
+              put($PATHS, ...) do ... end
+          - pattern-inside: |
+              delete($PATHS, ...) do ... end
+          - pattern-inside: |
+              patch($PATHS, ...) do ... end
+    severity: INFO
